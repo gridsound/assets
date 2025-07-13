@@ -37,15 +37,15 @@ const endLines = [
 async function writeDevFile( prefix = "" ) {
 	return [
 		formatLines( headerLines ) + "\n",
-		info.cssSrcA && formatSep, ...( info.cssSrcA || [] ).map( s => formatStyle( s ) ),
-		info.cssDep  && formatSep, ...( info.cssDep  || [] ).map( s => formatStyle( `${ prefix }${ s }` ) ),
-		info.cssSrcB && formatSep, ...( info.cssSrcB || [] ).map( s => formatStyle( s ) ),
-		formatSep, formatLines( bodyLines ) + "\n",
-		formatSep, info.splashScreen && await readFile( info.splashScreen ),
-		formatSep, `<script>function lg(a){return console.log.apply(console,arguments),a}</script>\n`,
-		info.jsSrcA && formatSep, ...( info.jsSrcA || [] ).map( s => formatScript( s ) ),
-		info.jsDep  && formatSep, ...( info.jsDep  || [] ).map( s => formatScript( `${ prefix }${ s }` ) ),
-		info.jsSrcB && formatSep, ...( info.jsSrcB || [] ).map( s => formatScript( s ) ),
+		info.cssSrcA      && formatSep, ...( info.cssSrcA || [] ).map( s => formatStyle( s ) ),
+		info.cssDep       && formatSep, ...( info.cssDep  || [] ).map( s => formatStyle( `${ prefix }${ s }` ) ),
+		info.cssSrcB      && formatSep, ...( info.cssSrcB || [] ).map( s => formatStyle( s ) ),
+		                     formatSep, formatLines( bodyLines ) + "\n",
+		info.splashScreen && formatSep, info.splashScreen && await readFile( info.splashScreen ),
+		                     formatSep, `<script>function lg(a){return console.log.apply(console,arguments),a}</script>\n`,
+		info.jsSrcA       && formatSep, ...( info.jsSrcA || [] ).map( s => formatScript( s ) ),
+		info.jsDep        && formatSep, ...( info.jsDep  || [] ).map( s => formatScript( `${ prefix }${ s }` ) ),
+		info.jsSrcB       && formatSep, ...( info.jsSrcB || [] ).map( s => formatScript( s ) ),
 		formatLines( endLines ),
 	].filter( Boolean ).join( "" );
 }
