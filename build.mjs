@@ -39,6 +39,7 @@ async function writeDevFile( prefix = "" ) {
 		formatLines( headerLines ) + "\n",
 		info.cssSrcA && formatSep, ...( info.cssSrcA || [] ).map( s => formatStyle( s ) ),
 		info.cssDep  && formatSep, ...( info.cssDep  || [] ).map( s => formatStyle( `${ prefix }${ s }` ) ),
+		info.cssSrcB && formatSep, ...( info.cssSrcB || [] ).map( s => formatStyle( s ) ),
 		formatSep, formatLines( bodyLines ) + "\n",
 		formatSep, info.splashScreen && await readFile( info.splashScreen ),
 		formatSep, `<script>function lg(a){return console.log.apply(console,arguments),a}</script>\n`,
@@ -51,12 +52,13 @@ async function writeDevFile( prefix = "" ) {
 
 async function writeProFile() {
 	const cssSrcA = await readFiles( info.cssSrcA );
+	const cssSrcB = await readFiles( info.cssSrcB );
 	const cssDep = await readFiles( info.cssDep );
 	const jsSrcA = await readFiles( info.jsSrcA );
 	const jsSrcB = await readFiles( info.jsSrcB );
 	const jsDep = await readFiles( info.jsDep );
 
-	fs.writeFileSync( "allCSS.css", cssSrcA + cssDep );
+	fs.writeFileSync( "allCSS.css", cssSrcA + cssDep + cssSrcB );
 	fs.writeFileSync( "allJS.js", jsSrcA + jsDep + jsSrcB );
 
 	const cssMin = await execCSSO( "allCSS.css" );
