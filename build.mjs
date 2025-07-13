@@ -37,14 +37,14 @@ const endLines = [
 async function writeDevFile( prefix = "" ) {
 	return [
 		formatLines( headerLines ) + "\n",
-		formatSep, ...info.cssSrcA.map( s => formatStyle( s ) ),
-		formatSep, ...info.cssDep.map( s => formatStyle( `${ prefix }${ s }` ) ),
+		info.cssSrcA && formatSep, ...( info.cssSrcA || [] ).map( s => formatStyle( s ) ),
+		info.cssDep  && formatSep, ...( info.cssDep  || [] ).map( s => formatStyle( `${ prefix }${ s }` ) ),
 		formatSep, formatLines( bodyLines ) + "\n",
 		formatSep, info.splashScreen && await readFile( info.splashScreen ),
 		formatSep, `<script>function lg(a){return console.log.apply(console,arguments),a}</script>\n`,
-		formatSep, ...info.jsSrcA.map( s => formatScript( s ) ),
-		formatSep, ...info.jsDep.map( s => formatScript( `${ prefix }${ s }` ) ),
-		formatSep, ...info.jsSrcB.map( s => formatScript( s ) ),
+		info.jsSrcA && formatSep, ...( info.jsSrcA || [] ).map( s => formatScript( s ) ),
+		info.jsDep  && formatSep, ...( info.jsDep  || [] ).map( s => formatScript( `${ prefix }${ s }` ) ),
+		info.jsSrcB && formatSep, ...( info.jsSrcB || [] ).map( s => formatScript( s ) ),
 		formatLines( endLines ),
 	].filter( Boolean ).join( "" );
 }
@@ -95,7 +95,7 @@ function pathProd( path, prod ) {
 function readFiles( paths, prod = true ) {
 	const prom = [];
 
-	paths.forEach( p => prom.push( readFile( p, prod ) ) );
+	paths?.forEach( p => prom.push( readFile( p, prod ) ) );
 	return Promise.all( prom ).then( arr => arr.join( "\n" ) + "\n" );
 }
 function readFile( path, prod = true ) {
