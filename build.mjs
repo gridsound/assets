@@ -70,7 +70,7 @@ async function writeProFile() {
 		formatLines( bodyLines ),
 		info.splashScreen && await readFile( info.splashScreen ),
 		`<script>function lg(a){return a}</script>\n`,
-		`<script>navigator.serviceWorker?.register("${ info.serviceWorker }").then(` +
+		info.serviceWorker && `<script>navigator.serviceWorker?.register("${ info.serviceWorker }").then(` +
 			`reg=>console.log("Service worker:",reg),` +
 			`err=>console.warn("Service worker registration failed:",err)` +
 		`);</script>\n`,
