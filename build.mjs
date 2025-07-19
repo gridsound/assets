@@ -57,9 +57,17 @@ async function writeProFile() {
 	const jsSrcA = await readFiles( info.jsSrcA );
 	const jsSrcB = await readFiles( info.jsSrcB );
 	const jsDep = await readFiles( info.jsDep );
+	let jsPre = `"use strict"; function lg( a ){ return a; }`;
+
+	if ( info.serviceWorker ) {
+		jsPre += `navigator.serviceWorker?.register( "${ info.serviceWorker }" ).then(
+			reg => console.log( "Service worker:", reg ),
+			err => console.warn( "Service worker registration failed:", err )
+		);\n`;
+	}
 
 	fs.writeFileSync( "allCSS.css", cssSrcA + cssDep + cssSrcB );
-	fs.writeFileSync( "allJS.js", jsSrcA + jsDep + jsSrcB );
+	fs.writeFileSync( "allJS.js", jsPre + jsSrcA + jsDep + jsSrcB );
 
 	const cssMin = await execCSSO( "allCSS.css" );
 	const jsMin = await execTerser( "allJS.js" );
@@ -67,15 +75,10 @@ async function writeProFile() {
 	fs.unlinkSync( "allCSS.css" );
 	fs.unlinkSync( "allJS.js" );
 	return [
-		formatLines( headerLines ),
+		formatLines( headerLines ) + "\n",
 		`<style>\n${ cssMin }</style>\n`,
-		formatLines( bodyLines ),
+		formatLines( bodyLines ) + "\n",
 		info.splashScreen && await readFile( info.splashScreen ),
-		`<script>function lg(a){return a}</script>\n`,
-		info.serviceWorker && `<script>navigator.serviceWorker?.register("${ info.serviceWorker }").then(` +
-			`reg=>console.log("Service worker:",reg),` +
-			`err=>console.warn("Service worker registration failed:",err)` +
-		`);</script>\n`,
 		`<script>\n${ jsMin }</script>\n`,
 		formatLines( endLines ),
 	].filter( Boolean ).join( "" );
