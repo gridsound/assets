@@ -69,7 +69,7 @@ async function writeProFile() {
 	fs.writeFileSync( "allCSS.css", cssSrcA + cssDep + cssSrcB );
 	fs.writeFileSync( "allJS.js", jsPre + jsSrcA + jsDep + jsSrcB );
 
-	const cssMin = await execCSSO( "allCSS.css" );
+	const cssMin = await execLightningCSS( "allCSS.css" );
 	const jsMin = await execTerser( "allJS.js" );
 
 	fs.unlinkSync( "allCSS.css" );
@@ -113,8 +113,8 @@ function readFile( path, prod = true ) {
 function execCmd( c ) {
 	return new Promise( res => exec( c, ( err, stdout ) => res( stdout ) ) );
 }
-function execCSSO( path ) {
-	return execCmd( `csso ${ path }` );
+function execLightningCSS( path ) {
+	return execCmd( `lightningcss ${ path } --minify --nesting` );
 }
 function execTerser( path ) {
 	return execCmd( `terser ${ path } --compress --mangle --toplevel --mangle-props "regex='^[$]'"` );
