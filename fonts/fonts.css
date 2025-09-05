@@ -1,6 +1,5 @@
 :root {
 	--gsui-font: "Montserrat", sans-serif;
-	--gsui-font-title: "Oswald", var( --gsui-font );
 	--gsui-font-monospace: "Inconsolata", "consolas", monospace;
 	--gsui-font-number: "Unica One", var( --gsui-font-monospace );
 }
@@ -20,17 +19,6 @@
 	font-style: normal;
 	font-weight: normal;
 	src: url( "fa-brands-400-filtered.woff2" );
-}
-
-/* Oswald (regular) */
-/* .......................................................................... */
-
-@font-face { /* latin */
-	font-family: "Oswald";
-	font-style: normal;
-	font-weight: normal;
-	src: local( "Oswald Regular" ), local( "Oswald-Regular" ), url( "oswald-400-latin.woff2" ) format( "woff2" );
-	unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 
 /* Unica One (regular) */
