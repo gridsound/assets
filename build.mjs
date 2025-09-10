@@ -2,6 +2,8 @@ import fs from "node:fs";
 import { exec } from "child_process";
 import info from "../build-conf.mjs";
 
+const version = "1.54.5";
+
 const headerLines = [
 	`<!DOCTYPE html>`,
 	`<html lang="en">`,
@@ -81,7 +83,7 @@ async function writeProFile() {
 		info.splashScreen && await readFile( info.splashScreen ),
 		`<script>\n${ jsMin }</script>\n`,
 		formatLines( endLines ),
-	].filter( Boolean ).join( "" );
+	].filter( Boolean ).join( "" ).replaceAll( "{{GSDAW-VERSION}}", version );
 }
 
 // .............................................................................
