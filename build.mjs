@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import { exec } from "child_process";
-import info from "../build-conf.mjs";
+const conf = "build-conf.mjs";
+const info = fs.existsSync( conf )
+	? fs.readFileSync( conf, "utf-8" )
+	: {};
 
 const headerLines = [
 	`<!DOCTYPE html>`,
