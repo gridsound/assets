@@ -133,6 +133,13 @@ function execTerser( path ) {
 }
 
 // .............................................................................
+async function lintJS() {
+	const ret = await execCmd( "eslint -c assets/eslint.config.mjs ." );
+
+	lg( ret || "linting ok ✔️" );
+}
+
+// .............................................................................
 switch ( process.argv[ 2 ] ) {
 	default:
 		lg( [
@@ -143,8 +150,10 @@ switch ( process.argv[ 2 ] ) {
 			"node build.mjs dev-main --> create 'index.html' for dev (./Submodules/files)",
 			"node build.mjs prod ------> create 'index-prod.html' for production",
 			"node build.mjs dep -------> update all submodules",
+			"node build.mjs lintJS ----> check the JS files",
 		].join( "\n" ) );
 		break;
+	case "lintJS": lintJS(); break;
 	case "prod":
 		lg( "writing 'index-prod.html'... " );
 		fs.writeFileSync( "index-prod.html", await writeProFile() );
@@ -168,11 +177,3 @@ switch ( process.argv[ 2 ] ) {
 		lg( "done" );
 		break;
 }
-
-// lint() {
-// 	stylelint "${CSSfiles[@]}"
-// 	echo '"use strict";' > __lintMain.js
-// 	cat "${JSfilesProd[@]}" | grep -v '"use strict";' >> __lintMain.js
-// 	cat "${JSfiles[@]}" | grep -v '"use strict";' >> __lintMain.js
-// 	eslint __lintMain.js && rm __lintMain.js
-// }
