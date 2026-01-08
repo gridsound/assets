@@ -118,7 +118,12 @@ function readFile( path, prod = true ) {
 
 // .............................................................................
 function execCmd( c ) {
-	return new Promise( res => exec( c, ( err, stdout ) => res( stdout ) ) );
+	return new Promise( res => exec( c, ( err, stdout, stderr ) => {
+		if ( stderr ) {
+			lg( stderr );
+		}
+		res( stdout );
+	} ) );
 }
 function execLightningCSS( path ) {
 	return execCmd( `lightningcss ${ path } --minify --nesting` );
