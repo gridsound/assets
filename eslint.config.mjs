@@ -1,7 +1,5 @@
-// README: `NODE_PATH=$(npm root -g) eslint`
-
 export default ( async () => {
-	const stylistic = await import( `file:///${ process.env.NODE_PATH }/@stylistic/eslint-plugin/dist/index.js` );
+	const stylistic = await import( `file:///${ process.env.APPDATA }/npm/node_modules/@stylistic/eslint-plugin/dist/index.js` );
 
 	return [
 		{
