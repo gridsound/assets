@@ -7,7 +7,7 @@ export default ( async () => {
 	];
 
 	const argsIgnorePattern = "^_";
-	const varsIgnorePattern = "^gs(ui|co)[A-Z\d]";
+	const varsIgnorePattern = "^gs(ui|co)[0-9A-Z]";
 
 	return [
 		{
