@@ -134,7 +134,7 @@ function execTerser( path ) {
 
 // .............................................................................
 async function lintJS() {
-	const ret = await execCmd( "eslint -c assets/eslint.config.mjs ." );
+	const ret = await execCmd( "eslint -c assets/eslint.config.mjs . --color" );
 
 	lg( ret || "linting ok ✔️" );
 }
