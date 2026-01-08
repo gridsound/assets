@@ -1,9 +1,17 @@
 export default ( async () => {
 	const stylistic = await import( `file:///${ process.env.APPDATA }/npm/node_modules/@stylistic/eslint-plugin/dist/index.js` );
 
+	const files = [
+		"gsui*/*.js",
+		"src/**/*.js",
+	];
+
+	const argsIgnorePattern = "^_";
+	const varsIgnorePattern = "^gs(ui|co)[A-Z\d]";
+
 	return [
 		{
-			files: [ "gsui*/*.js", "src/**/*.js" ],
+			files,
 			languageOptions: {
 				sourceType: "script",
 			},
@@ -22,7 +30,7 @@ export default ( async () => {
 				"prefer-spread":                   [ "error" ],
 				"no-lonely-if":                    [ "error" ],
 				"no-else-return":                  [ "error" ],
-				"no-unused-vars":                  [ "error", { argsIgnorePattern: "^_", varsIgnorePattern: "^gsui", } ],
+				"no-unused-vars":                  [ "error", { argsIgnorePattern, varsIgnorePattern, } ],
 				"prefer-template":                 [ "error" ],
 				"no-empty-function":               [ "error", { allow: [ "arrowFunctions", "methods" ] } ],
 				"no-param-reassign":               [ "error", { props: false } ],
