@@ -3,7 +3,7 @@ export default ( async () => {
 
 	return [
 		{
-			files: [ "gsui*/*.js" ],
+			files: [ "gsui*/*.js", "src/**/*.js" ],
 			languageOptions: {
 				sourceType: "script",
 			},
