@@ -6,6 +6,8 @@ export default ( async () => {
 		"src/**/*.js",
 	];
 
+	const lineMaxLength = 220;
+	const lineMaxStatement = 3;
 	const argsIgnorePattern = "^_";
 	const varsIgnorePattern = "^gs(ui|co)[0-9A-Z]";
 
@@ -42,7 +44,6 @@ export default ( async () => {
 				"prefer-exponentiation-operator":  [ "error" ],
 				"no-unused-private-class-members": [ "error" ],
 
-				// brackets/braces/parens
 				// .....................................................................
 				"curly":            [ "error", "all" ],
 				"object-shorthand": [ "error", "always", { avoidExplicitReturnArrows: true } ],
@@ -111,45 +112,83 @@ export default ( async () => {
 				"no-unsafe-optional-chaining":  [ "error" ],
 				"no-unmodified-loop-condition": [ "error" ],
 
-				// stylistic
+				// stylistic (plugin)
 				// .....................................................................
-				"@stylistic/semi":                            [ "error", "always" ],
-				"@stylistic/no-tabs":                         [ "error", { allowIndentationTabs: true } ],
-				"@stylistic/quotes":                          [ "error", "double" ],
+				"@stylistic/semi":          [ "error", "always" ],
+				"@stylistic/semi-style":    [ "error", "last" ],
+				"@stylistic/no-extra-semi": [ "error" ],
+				// .....................................................................
+				"@stylistic/key-spacing":               [ "error", { mode: "minimum" } ],
+				"@stylistic/semi-spacing":              [ "error", { before: false, after: true } ],
+				"@stylistic/arrow-spacing":             [ "error", { before: true, after: true } ],
+				"@stylistic/block-spacing":             [ "error", "always" ],
+				"@stylistic/comma-spacing":             [ "error", { before: false, after: true } ],
+				"@stylistic/keyword-spacing":           [ "error", { before: true, after: true } ],
+				"@stylistic/yield-star-spacing":        [ "error", "before" ],
+				"@stylistic/rest-spread-spacing":       [ "error", "never" ],
+				"@stylistic/object-curly-spacing":      [ "error", "always" ],
+				"@stylistic/switch-colon-spacing":      [ "error", { before: false, after: true } ],
+				"@stylistic/template-tag-spacing":      [ "error", "always" ],
+				"@stylistic/array-bracket-spacing":     [ "error", "always" ],
+				"@stylistic/function-call-spacing":     [ "error", "never" ],
+				"@stylistic/generator-star-spacing":    [ "error", { before: true, after: false } ],
+				"@stylistic/template-curly-spacing":    [ "error", "always" ],
+				"@stylistic/computed-property-spacing": [ "error", "always" ],
+				// .....................................................................
+				"@stylistic/array-element-newline": [ "error", "consistent" ],
+				"@stylistic/comma-dangle":          [ "error", {
+					"arrays":           "always-multiline",
+					"objects":          "always-multiline",
+					"imports":          "always-multiline",
+					"exports":          "always-multiline",
+					"functions":        "only-multiline",
+					"importAttributes": "always-multiline",
+					"dynamicImports":   "always-multiline",
+					"enums":            "always-multiline",
+					"generics":         "always-multiline",
+					"tuples":           "always-multiline",
+				} ],
+				"@stylistic/curly-newline":               [ "error", { consistent: true, multiline: true, minElements: 2 } ],
+				"@stylistic/dot-location":                [ "error", "property" ],
+				"@stylistic/indent-binary-ops":           [ "error", "tab" ],
+				"@stylistic/lines-between-class-members": [ "error", { enforce: [
+					{ blankLine: "never", prev: "field", next: "field" },
+				] } ],
+				"@stylistic/max-len":                          [ "error", { code: lineMaxLength, tabWidth: 4 } ],
+				"@stylistic/max-statements-per-line":          [ "error", { max: lineMaxStatement } ],
+				"@stylistic/no-multiple-empty-lines":          [ "error", { max: 1, maxEOF: 0 } ],
+				"@stylistic/nonblock-statement-body-position": [ "error", "below" ],
+				"@stylistic/one-var-declaration-per-line":     [ "error", "always" ],
+				"@stylistic/operator-linebreak":               [ "error", "after", { overrides: { "?": "ignore", ":": "ignore" } } ],
+ 				"@stylistic/no-mixed-operators":               [ "error", { groups: [ [ "&", "|", "^", "~", "<<", ">>", ">>>" ], [ "&&", "||" ] ] } ],
+				"@stylistic/wrap-iife":                        [ "error", "inside" ],
+				// .....................................................................
 				"@stylistic/indent":                          [ "error", "tab", { SwitchCase: 1, flatTernaryExpressions: true, ignoredNodes: [ "AssignmentExpression > .right" ] } ],
+				"@stylistic/quotes":                          [ "error", "double" ],
+				"@stylistic/no-tabs":                         [ "error", { allowIndentationTabs: true } ],
 				"@stylistic/new-parens":                      [ "error" ],
 				"@stylistic/brace-style":                     [ "error", "1tbs", { allowSingleLine: true } ],
 				"@stylistic/arrow-parens":                    [ "error", "as-needed" ],
 				"@stylistic/no-extra-parens":                 [ "error", "all", { nestedBinaryExpressions: false, returnAssign: false } ],
-				"@stylistic/semi-style":                      [ "error", "last" ],
 				"@stylistic/comma-style":                     [ "error", "last" ],
 				"@stylistic/quote-props":                     [ "error", "as-needed" ],
-				"@stylistic/no-extra-semi":                   [ "error" ],
 				"@stylistic/linebreak-style":                 [ "error", "unix" ],
 				// .....................................................................
-				"@stylistic/eol-last":                        [ "error", "always" ],
-				"@stylistic/key-spacing":                     [ "error", { mode: "minimum" } ],
-				"@stylistic/arrow-spacing":                   [ "error", { before: true, after: true } ],
-				"@stylistic/comma-spacing":                   [ "error", { before: false, after: true } ],
-				"@stylistic/padded-blocks":                   [ "error", "never" ],
-				"@stylistic/spaced-comment":                  [ "error", "always" ],
-				"@stylistic/space-infix-ops":                 [ "error" ],
-				"@stylistic/keyword-spacing":                 [ "error", { before: true, after: true } ],
-				"@stylistic/space-in-parens":                 [ "error", "always" ],
-				"@stylistic/no-trailing-spaces":              [ "error" ],
-				"@stylistic/rest-spread-spacing":             [ "error", "never" ],
-				"@stylistic/object-curly-spacing":            [ "error", "always" ],
-				"@stylistic/switch-colon-spacing":            [ "error", { before: false, after: true } ],
-				"@stylistic/array-bracket-spacing":           [ "error", "always" ],
-				"@stylistic/function-call-spacing":           [ "error", "never" ],
-				"@stylistic/template-curly-spacing":          [ "error", "always" ],
-				"@stylistic/no-mixed-spaces-and-tabs":        [ "error", "smart-tabs" ],
-				"@stylistic/computed-property-spacing":       [ "error", "always" ],
-				"@stylistic/no-whitespace-before-property":   [ "error" ],
+				"@stylistic/eol-last":                      [ "error", "always" ],
+				"@stylistic/padded-blocks":                 [ "error", "never" ],
+				"@stylistic/spaced-comment":                [ "error", "always" ],
+				"@stylistic/space-in-parens":               [ "error", "always" ],
+				"@stylistic/space-infix-ops":               [ "error" ],
+				"@stylistic/space-unary-ops":               [ "error", { words: true, nonwords: false } ],
+				"@stylistic/no-trailing-spaces":            [ "error" ],
+				"@stylistic/space-before-blocks":           [ "error", "always" ],
+				"@stylistic/no-mixed-spaces-and-tabs":      [ "error", "smart-tabs" ],
+				"@stylistic/space-before-function-paren":   [ "error", "never" ],
+				"@stylistic/no-whitespace-before-property": [ "error" ],
 				"@stylistic/padding-line-between-statements": [ "error",
-				                                                  { blankLine: "always", prev: [ "const", "let" ], next: "*" },
-				                                                  { blankLine: "never",  prev: [ "const", "let" ], next: [ "const", "let" ] }
-				                                              ],
+					{ blankLine: "always", prev: [ "const", "let" ], next: "*" },
+					{ blankLine: "never",  prev: [ "const", "let" ], next: [ "const", "let" ] }
+				],
 			},
 		},
 	];
