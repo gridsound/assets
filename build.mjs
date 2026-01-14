@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { exec } from "child_process";
-const conf = "build-conf.mjs";
+const conf = "build-conf.json";
 const info = fs.existsSync( conf )
-	? fs.readFileSync( conf, "utf-8" )
+	? JSON.parse( fs.readFileSync( conf, "utf-8" ) )
 	: {};
 
 const headerLines = [
