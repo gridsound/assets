@@ -24,6 +24,15 @@ export default ( async () => {
 
 	return [
 		{
+			ignores: [
+				"**/worker/asm/opusenc.js",
+				"**/worker/wasm/opusenc.js",
+				"**/worker/OpusEncoder.js",
+				"**/worker/EmsArgs.js",
+				"**/worker/EmsWorkerProxy.js",
+			],
+		},
+		{
 			files: [ "**/*.js" ],
 			languageOptions: {
 				sourceType: "script",
