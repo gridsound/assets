@@ -17,6 +17,7 @@ export default ( async () => {
 			"^DAWCore[A-Z]?",
 			"^GScomposition$",
 			"^GSData$",
+			"^GSSoundbox$",
 			"^lg$",
 			"^___$",
 		].join( "|" ) })`,
