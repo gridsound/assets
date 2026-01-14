@@ -4,7 +4,16 @@ export default ( async () => {
 	const lineMaxLength = 220;
 	const lineMaxStatement = 3;
 	const argsIgnorePattern = "^_";
-	const varsIgnorePattern = "^(gsui[0-9A-Z]|gsco[A-Z]|GSU[a-zA-Z]|GSData|___)";
+	const varsIgnorePattern = `(${ [
+		"^gsui[0-9A-Z]",
+		"^gswa[A-Z]",
+		"^gsco[A-Z]",
+		"^GSU[a-zA-Z]",
+		"^GSEV_[A-Z]",
+		"^lg$",
+		"^GSData$",
+		"^___$",
+	].join( "|" ) })`;
 
 	return [
 		{
