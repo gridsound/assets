@@ -192,7 +192,12 @@ export default ( async () => {
 				"@stylistic/no-trailing-spaces":            [ "error" ],
 				"@stylistic/space-before-blocks":           [ "error", "always" ],
 				"@stylistic/no-mixed-spaces-and-tabs":      [ "error", "smart-tabs" ],
-				"@stylistic/space-before-function-paren":   [ "error", "never" ],
+				"@stylistic/space-before-function-paren":   [ "error", {
+					"named": "never",
+					"anonymous": "never",
+					"asyncArrow": "never",
+					"catch": "always",
+				} ],
 				"@stylistic/no-whitespace-before-property": [ "error" ],
 				"@stylistic/padding-line-between-statements": [ "error",
 					{ blankLine: "always", prev: [ "const", "let" ], next: "*" },
