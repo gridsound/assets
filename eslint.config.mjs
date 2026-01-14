@@ -4,12 +4,13 @@ export default ( async () => {
 	const files = [
 		"gsui*/*.js",
 		"src/**/*.js",
+		"gs-utils*.js",
 	];
 
 	const lineMaxLength = 220;
 	const lineMaxStatement = 3;
 	const argsIgnorePattern = "^_";
-	const varsIgnorePattern = "^gs(ui|co)[0-9A-Z]";
+	const varsIgnorePattern = "^(gsui[0-9A-Z]|gsco[A-Z]|GSU[a-zA-Z]|GSData|___)";
 
 	return [
 		{
