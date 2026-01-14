@@ -36,7 +36,7 @@ export default ( async () => {
 				"prefer-spread":                   [ "error" ],
 				"no-lonely-if":                    [ "error" ],
 				"no-else-return":                  [ "error" ],
-				"no-unused-vars":                  [ "error", { argsIgnorePattern, varsIgnorePattern, } ],
+				"no-unused-vars":                  [ "error", { argsIgnorePattern, varsIgnorePattern, ignoreRestSiblings: true } ],
 				"prefer-template":                 [ "error" ],
 				"no-empty-function":               [ "error", { allow: [ "arrowFunctions", "methods" ] } ],
 				"no-param-reassign":               [ "error", { props: false } ],
