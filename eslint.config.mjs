@@ -1,12 +1,6 @@
 export default ( async () => {
 	const stylistic = await import( `file:///${ process.env.APPDATA }/npm/node_modules/@stylistic/eslint-plugin/dist/index.js` );
 
-	const files = [
-		"gsui*/*.js",
-		"src/**/*.js",
-		"gs-utils*.js",
-	];
-
 	const lineMaxLength = 220;
 	const lineMaxStatement = 3;
 	const argsIgnorePattern = "^_";
@@ -14,7 +8,7 @@ export default ( async () => {
 
 	return [
 		{
-			files,
+			files: [ "**/*.js" ],
 			languageOptions: {
 				sourceType: "script",
 			},
