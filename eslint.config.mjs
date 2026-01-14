@@ -15,6 +15,7 @@ export default ( async () => {
 			"^GSU[a-zA-Z]",
 			"^GSEV_[A-Z]",
 			"^DAWCore[A-Z]?",
+			"^GScomposition$",
 			"^GSData$",
 			"^lg$",
 			"^___$",
