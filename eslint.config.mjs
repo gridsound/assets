@@ -3,17 +3,22 @@ export default ( async () => {
 
 	const lineMaxLength = 220;
 	const lineMaxStatement = 3;
-	const argsIgnorePattern = "^_";
-	const varsIgnorePattern = `(${ [
-		"^gsui[0-9A-Z]",
-		"^gswa[A-Z]",
-		"^gsco[A-Z]",
-		"^GSU[a-zA-Z]",
-		"^GSEV_[A-Z]",
-		"^lg$",
-		"^GSData$",
-		"^___$",
-	].join( "|" ) })`;
+	const noUnusedVars = {
+		caughtErrors: "none",
+		ignoreRestSiblings: true,
+		argsIgnorePattern: "^_",
+		varsIgnorePattern: `(${ [
+			"^gsui[0-9A-Z]",
+			"^gswa[A-Z]",
+			"^gsco[A-Z]",
+			"^gsapiClient$",
+			"^GSU[a-zA-Z]",
+			"^GSEV_[A-Z]",
+			"^lg$",
+			"^GSData$",
+			"^___$",
+		].join( "|" ) })`,
+	};
 
 	return [
 		{
@@ -36,7 +41,7 @@ export default ( async () => {
 				"prefer-spread":                   [ "error" ],
 				"no-lonely-if":                    [ "error" ],
 				"no-else-return":                  [ "error" ],
-				"no-unused-vars":                  [ "error", { argsIgnorePattern, varsIgnorePattern, ignoreRestSiblings: true } ],
+				"no-unused-vars":                  [ "error", noUnusedVars ],
 				"prefer-template":                 [ "error" ],
 				"no-empty-function":               [ "error", { allow: [ "arrowFunctions", "methods" ] } ],
 				"no-param-reassign":               [ "error", { props: false } ],
