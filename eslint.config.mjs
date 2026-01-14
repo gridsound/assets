@@ -14,8 +14,9 @@ export default ( async () => {
 			"^gsapiClient$",
 			"^GSU[a-zA-Z]",
 			"^GSEV_[A-Z]",
-			"^lg$",
+			"^DAWCore[A-Z]?",
 			"^GSData$",
+			"^lg$",
 			"^___$",
 		].join( "|" ) })`,
 	};
