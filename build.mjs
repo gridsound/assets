@@ -118,11 +118,10 @@ function readFile( path, prod = true ) {
 
 // .............................................................................
 function execCmd( c ) {
-	return new Promise( res => exec( c, ( err, stdout, stderr ) => {
-		if ( stderr ) {
-			lg( stderr );
-		}
-		res( stdout );
+	return new Promise( ( res, rej ) => exec( c, ( err, stdout, stderr ) => {
+		err
+			? rej( stderr || stdout )
+			: res( stdout );
 	} ) );
 }
 function execLightningCSS( path ) {
@@ -131,12 +130,11 @@ function execLightningCSS( path ) {
 function execTerser( path ) {
 	return execCmd( `terser ${ path } --compress --mangle --toplevel --mangle-props "regex='^[$]'"` );
 }
-
-// .............................................................................
-async function lintJS() {
-	const ret = await execCmd( "eslint -c assets/eslint.config.mjs . --color" );
-
-	lg( ret || "linting ok ✔️" );
+function execESLint() {
+	return execCmd( "eslint -c assets/eslint.config.mjs . --color" )
+		.then( () => lg( "linting JS ok ✔️" ) )
+		.catch( lg );
+}
 }
 
 // .............................................................................
@@ -153,7 +151,7 @@ switch ( process.argv[ 2 ] ) {
 			"node build.mjs lintJS ----> check the JS files",
 		].join( "\n" ) );
 		break;
-	case "lintJS": lintJS(); break;
+	case "lintJS": execESLint(); break;
 	case "prod":
 		lg( "writing 'index-prod.html'... " );
 		fs.writeFileSync( "index-prod.html", await writeProFile() );
