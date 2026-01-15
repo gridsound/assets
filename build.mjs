@@ -135,6 +135,10 @@ function execESLint() {
 		.then( () => lg( "linting JS ok ✔️" ) )
 		.catch( lg );
 }
+function execStylelint() {
+	return execCmd( "stylelint -c assets/stylelint.config.mjs **/*.css" )
+		.then( () => lg( "linting CSS ok ✔️" ) )
+		.catch( lg );
 }
 
 // .............................................................................
@@ -149,9 +153,11 @@ switch ( process.argv[ 2 ] ) {
 			"node build.mjs prod ------> create 'index-prod.html' for production",
 			"node build.mjs dep -------> update all submodules",
 			"node build.mjs lintJS ----> check the JS files",
+			"node build.mjs lintCSS ---> check the CSS files",
 		].join( "\n" ) );
 		break;
 	case "lintJS": execESLint(); break;
+	case "lintCSS": execStylelint(); break;
 	case "prod":
 		lg( "writing 'index-prod.html'... " );
 		fs.writeFileSync( "index-prod.html", await writeProFile() );
