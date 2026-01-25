@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>build gsuiWaveletList</title>
+</head>
+<body>
+
+<textarea id="output"></textarea>
+
+<script src="../gs-utils/gs-utils.js"></script>
+<script src="../gs-utils/gs-utils-dom.js"></script>
+<script src="../gs-utils/gs-utils-math.js"></script>
+<script src="../gs-utils/gs-utils-func.js"></script>
+<script src="../gs-utils/gs-utils-files.js"></script>
+<script src="../gs-utils/gs-utils-jquery.js"></script>
+<script src="../gs-utils/gs-utils-checkType.dev.js"></script>
+<script src="../gs-utils/gs-utils-audio-nodes.dev.js"></script>
+<script>
+
+function lg( ...args ) { return console.log( ...args ), args[ 0 ]; }
+
+$( GSUdomBody ).$css( "margin", 0 );
+
+const output = $( "#output" ).$css( {
+	position: "absolute",
+	inset: 0,
+	border: 0,
+	outline: 0,
+	padding: 0,
+	whiteSpace: "pre",
+	resize: "none",
+	color: "#fff",
+	background: "#002a",
+} ).$text( "drop wavelets here (*.wav)" );
+
+document.ondragover = GSUnoopFalse;
+document.ondrop = e => {
+	let saveFiles;
+	let ctx;
+
+	e.preventDefault();
+	e.stopPropagation();
+	output.$text( "" );
+	GSUgetFilesDataTransfert( e.dataTransfer.items )
+		.then( files => {
+			saveFiles = files;
+			return Promise.all( files.map( f => GSUgetFileContent( f, "array" ) ) );
+		} )
+		.then( files => {
+			ctx = GSUaudioContext();
+			return Promise.all( files.map( f => ctx.decodeAudioData( f ) ) );
+		} )
+		.then( waves => {
+			ctx.close();
+			output.$text( [
+				`"use strict";`,
+				``,
+				`/* eslint-disable */`,
+				`const gsuiWaveletList = [`,
+				...waves.map( ( buf, i ) => {
+					const name = saveFiles[ i ].name.replaceAll( /(^a_|\.wav$)/ug, "" );
+					const arr = GSUarrayResize( buf.getChannelData( 0 ), 100 ).map( n => GSUmathFix( n, 2 ) );
+
+					return `\t["${ name }",[${ arr.toString().replaceAll( "0.", "." ) }]],`;
+				} ),
+				`];`,
+				`/* eslint-enable */`,
+				``,
+			].join( "\n" ) );
+		} );
+};
+</script>
+</body>
+</html>
