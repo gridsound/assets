@@ -25,6 +25,7 @@ export default ( async () => {
 
 			"value-no-vendor-prefix": true,
 			"at-rule-no-vendor-prefix": true,
+			"selector-not-notation": "complex",
 			"selector-no-vendor-prefix": true,
 			"property-no-vendor-prefix": [ true, { ignoreProperties: vendorProperties } ],
 			"media-feature-name-no-vendor-prefix": true,
