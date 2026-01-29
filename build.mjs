@@ -135,8 +135,8 @@ function execESLint() {
 		.then( () => lg( "linting JS ok ✔️" ) )
 		.catch( lg );
 }
-function execStylelint() {
-	return execCmd( "stylelint -c assets/stylelint.config.mjs **/*.css" )
+function execStylelint( fix ) {
+	return execCmd( `stylelint -c assets/stylelint.config.mjs **/*.css${ fix }` )
 		.then( () => lg( "linting CSS ok ✔️" ) )
 		.catch( lg );
 }
@@ -157,7 +157,8 @@ switch ( process.argv[ 2 ] ) {
 		].join( "\n" ) );
 		break;
 	case "lintJS": execESLint(); break;
-	case "lintCSS": execStylelint(); break;
+	case "lintCSS": execStylelint( "" ); break;
+	case "lintCSSfix": execStylelint( " --fix" ); break;
 	case "prod":
 		lg( "writing 'index-prod.html'... " );
 		fs.writeFileSync( "index-prod.html", await writeProFile() );
