@@ -11,21 +11,21 @@
 	font-family: "FontAwesome";
 	font-style: normal;
 	font-weight: normal;
-	src: url( "fa-duotone-900.woff2" );
+	src: url( "fa-duotone-900.woff2?1" );
 }
 
 @font-face {
 	font-family: "FontAwesomeCustom";
 	font-style: normal;
 	font-weight: normal;
-	src: url( "fa-custom.woff2" );
+	src: url( "fa-custom.woff2?1" );
 }
 
 @font-face {
 	font-family: "FontAwesomeBrands";
 	font-style: normal;
 	font-weight: normal;
-	src: url( "fa-brands-400-filtered.woff2" );
+	src: url( "fa-brands-400-filtered.woff2?1" );
 }
 
 /* Unica One (regular) */
@@ -35,7 +35,7 @@
 	font-family: "Unica One";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Unica One" ), local( "UnicaOne-Regular" ), url( "unica-one-400-latin.woff2" ) format( "woff2" );
+	src: local( "Unica One" ), local( "UnicaOne-Regular" ), url( "unica-one-400-latin.woff2?1" ) format( "woff2" );
 	unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 
@@ -46,7 +46,7 @@
 	font-family: "Inconsolata";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Inconsolata Regular" ), local( "Inconsolata-Regular" ), url( "inconsolata-400-latin.woff2" ) format( "woff2" );
+	src: local( "Inconsolata Regular" ), local( "Inconsolata-Regular" ), url( "inconsolata-400-latin.woff2?1" ) format( "woff2" );
 	unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 
@@ -67,7 +67,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-cyrillic-ext.woff2" ) format( "woff2" );
+	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-cyrillic-ext.woff2?1" ) format( "woff2" );
 	unicode-range: u+0460-052f, u+1c80-1c88, u+20b4, u+2de0-2dff, u+a640-a69f, u+fe2e-fe2f;
 }
 
@@ -75,7 +75,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-cyrillic.woff2" ) format( "woff2" );
+	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-cyrillic.woff2?1" ) format( "woff2" );
 	unicode-range: u+0400-045f, u+0490-0491, u+04b0-04b1, u+2116;
 }
 
@@ -83,7 +83,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-vietnamese.woff2" ) format( "woff2" );
+	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-vietnamese.woff2?1" ) format( "woff2" );
 	unicode-range: u+0102-0103, u+0110-0111, u+1ea0-1ef9, u+20ab;
 }
 
@@ -91,7 +91,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-latin-ext.woff2" ) format( "woff2" );
+	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-latin-ext.woff2?1" ) format( "woff2" );
 	unicode-range: u+0100-024f, u+0259, u+1e00-1eff, u+2020, u+20a0-20ab, u+20ad-20cf, u+2113, u+2c60-2c7f, u+a720-a7ff;
 }
 
@@ -99,7 +99,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: normal;
-	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-latin.woff2" ) format( "woff2" );
+	src: local( "Montserrat Medium" ), local( "Montserrat-Medium" ), url( "montserrat-500-latin.woff2?1" ) format( "woff2" );
 	unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 
@@ -110,7 +110,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
-	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-cyrillic-ext.woff2" ) format( "woff2" );
+	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-cyrillic-ext.woff2?1" ) format( "woff2" );
 	unicode-range: u+0460-052f, u+1c80-1c88, u+20b4, u+2de0-2dff, u+a640-a69f, u+fe2e-fe2f;
 }
 
@@ -118,7 +118,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
-	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-cyrillic.woff2" ) format( "woff2" );
+	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-cyrillic.woff2?1" ) format( "woff2" );
 	unicode-range: u+0400-045f, u+0490-0491, u+04b0-04b1, u+2116;
 }
 
@@ -126,7 +126,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
-	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-vietnamese.woff2" ) format( "woff2" );
+	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-vietnamese.woff2?1" ) format( "woff2" );
 	unicode-range: u+0102-0103, u+0110-0111, u+1ea0-1ef9, u+20ab;
 }
 
@@ -134,7 +134,7 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
-	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-latin-ext.woff2" ) format( "woff2" );
+	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-latin-ext.woff2?1" ) format( "woff2" );
 	unicode-range: u+0100-024f, u+0259, u+1e00-1eff, u+2020, u+20a0-20ab, u+20ad-20cf, u+2113, u+2c60-2c7f, u+a720-a7ff;
 }
 
@@ -142,6 +142,6 @@
 	font-family: "Montserrat";
 	font-style: normal;
 	font-weight: bold;
-	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-latin.woff2" ) format( "woff2" );
+	src: local( "Montserrat Bold" ), local( "Montserrat-Bold" ), url( "montserrat-700-latin.woff2?1" ) format( "woff2" );
 	unicode-range: u+0000-00ff, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+2000-206f, u+2074, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
