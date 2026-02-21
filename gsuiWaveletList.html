@@ -45,6 +45,14 @@ function farr( a ) {
 	return a.map( fnum ).toString().replaceAll( "0.", "." );
 }
 
+function sortArray( arr ) {
+	const collator = new Intl.Collator( undefined, { numeric: true } );
+	const cmp = ( a, b ) => Math.sign( collator.compare( a, b ) );
+
+	arr.sort( ( a, b ) => cmp( a[ 0 ], b[ 0 ] ) );
+	return arr;
+}
+
 document.ondragover = GSUnoopFalse;
 document.ondrop = e => {
 	let saveFiles;
@@ -63,23 +71,35 @@ document.ondrop = e => {
 			return Promise.all( files.map( f => ctx.decodeAudioData( f ) ) );
 		} )
 		.then( waves => {
+			const waves2 = sortArray( waves.map( ( buf, i ) => [
+				saveFiles[ i ].name.replaceAll( /(^a_|\.wav$)/ug, "" ),
+				GSUarrayResize( buf.getChannelData( 0 ), WFsize ),
+			] ) );
+
 			ctx.close();
+			const group0 = [
+				[ "silence" , [ 0, 0 ] ],
+				[ "sine" , GSUmathWaveSine( WFsize ) ],
+				[ "triangle" , GSUmathWaveTriangle( 5 ) ],
+				[ "sawtooth" , GSUmathWaveSawtooth( WFsize ) ],
+				[ "square" , GSUmathWaveSquare( WFsize ) ],
+			];
+			const group1 = waves2.filter( w => w[ 0 ].startsWith( "GS1_" ) );
+			const group2 = waves2.filter( w => w[ 0 ].startsWith( "AKWF_" ) );
+
+			if ( group1.length + group2.length !== waves2.length ) {
+				console.error( "group1.length + group2.length !== waves2.length" );
+			}
 			output.$text( [
 				`"use strict";`,
 				``,
 				`/* eslint-disable */`,
 				`const gsuiWaveletList = [`,
-				`\t["silence",[0,0]],`,
-				`\t["sine",[${ farr( GSUmathWaveSine( WFsize ) ) }]],`,
-				`\t["triangle",[${ farr( GSUmathWaveTriangle( 5 ) ) }]],`,
-				`\t["saw",[${ farr( GSUmathWaveSawtooth( WFsize ) ) }]],`,
-				`\t["square",[${ farr( GSUmathWaveSquare( WFsize ) ) }]],`,
-				...waves.map( ( buf, i ) => {
-					const name = saveFiles[ i ].name.replaceAll( /(^a_|\.wav$)/ug, "" );
-					const arr = farr( GSUarrayResize( buf.getChannelData( 0 ), WFsize ) );
-
-					return `\t["${ name }",[${ arr }]],`;
-				} ),
+					...[
+						...group0,
+						...group1,
+						...group2,
+					].map( w => `\t["${ w[ 0 ] }",[${ farr( w[ 1 ] ) }]],` ),
 				`];`,
 				`/* eslint-enable */`,
 				``,
