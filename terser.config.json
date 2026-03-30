@@ -1,0 +1,13 @@
+{
+	"compress": {
+		"global_defs": {
+			"__LOCALHOST__": false
+		}
+	},
+	"mangle": {
+		"toplevel": true,
+		"properties": {
+			"regex": "^[$]"
+		}
+	}
+}

@@ -69,7 +69,6 @@ async function writeProFile() {
 	const jsSrcB = await readFiles( info.jsSrcB );
 	const jsDep = await readFiles( info.jsDep );
 	let jsPre = `"use strict";
-		const __LOCALHOST__ = false;
 		function lg( a ){ return a; }
 	`;
 
@@ -139,7 +138,7 @@ function execLightningCSS( path ) {
 	return execCmd( `lightningcss ${ path } --minify --nesting` );
 }
 function execTerser( path ) {
-	return execCmd( `terser ${ path } --compress --mangle --toplevel --mangle-props "regex='^[$]'"` );
+	return execCmd( `terser ${ path } --config-file assets/terser.config.json` );
 }
 function execESLint() {
 	return execCmd( "eslint -c assets/eslint.config.mjs . --color" )
