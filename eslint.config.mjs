@@ -19,7 +19,6 @@ export default ( async () => {
 			"^GSData$",
 			"^GSSoundbox$",
 			"^lg$",
-			"^___$",
 		].join( "|" ) })`,
 	};
 

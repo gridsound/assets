@@ -111,18 +111,15 @@ const formatSep = `<!-- ${ ( new Array( 71 ) ).join( "." ) } -->\n`;
 function lg( s ) {
 	process.stdout.write( s );
 }
-function pathProd( path, prod ) {
-	return prod ? path.replace( ".dev.js", ".prod.js" ) : path;
-}
-function readFiles( paths, prod = true ) {
+function readFiles( paths ) {
 	const prom = [];
 
-	paths?.forEach( p => prom.push( readFile( p, prod ) ) );
+	paths?.forEach( p => prom.push( readFile( p ) ) );
 	return Promise.all( prom ).then( arr => arr.join( "\n" ) + "\n" );
 }
-function readFile( path, prod = true ) {
+function readFile( path ) {
 	return new Promise( res => {
-		fs.readFile( pathProd( path, prod ), "utf8", ( err, txt ) => res( txt ) );
+		fs.readFile( path, "utf8", ( err, txt ) => res( txt ) );
 	} );
 }
 
