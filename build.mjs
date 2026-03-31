@@ -38,14 +38,6 @@ const endLines = [
 ];
 
 async function writeDevFile( prefix = "" ) {
-	const initJS = [
-		"<script>",
-		"	const __LOCALHOST__ = true;",
-		"	function lg( a ){ return console.log.apply( console, arguments ), a }",
-		"</script>",
-		"",
-	];
-
 	return [
 		formatLines( headerLines ) + "\n",
 		info.cssSrcA      && formatSep, ...( info.cssSrcA || [] ).map( s => formatStyle( s ) ),
@@ -53,7 +45,6 @@ async function writeDevFile( prefix = "" ) {
 		info.cssSrcB      && formatSep, ...( info.cssSrcB || [] ).map( s => formatStyle( s ) ),
 		                     formatSep, formatLines( bodyLines ) + "\n",
 		info.splashScreen && formatSep, info.splashScreen && await readFile( info.splashScreen ),
-		                     formatSep, initJS.join( "\n" ),
 		info.jsSrcA       && formatSep, ...( info.jsSrcA || [] ).map( s => formatScript( s ) ),
 		info.jsDep        && formatSep, ...( info.jsDep  || [] ).map( s => formatScript( `${ prefix }${ s }` ) ),
 		info.jsSrcB       && formatSep, ...( info.jsSrcB || [] ).map( s => formatScript( s ) ),
@@ -68,9 +59,7 @@ async function writeProFile() {
 	const jsSrcA = await readFiles( info.jsSrcA );
 	const jsSrcB = await readFiles( info.jsSrcB );
 	const jsDep = await readFiles( info.jsDep );
-	let jsPre = `"use strict";
-		function lg( a ){ return a; }
-	`;
+	let jsPre = "";
 
 	if ( info.serviceWorker ) {
 		jsPre += `navigator.serviceWorker?.register( "${ info.serviceWorker }" ).then(
@@ -79,8 +68,11 @@ async function writeProFile() {
 		);\n`;
 	}
 
+	const jsAll = ( jsPre + jsSrcA + jsDep + jsSrcB )
+		.replace( "const __LOCALHOST__ = true;", "const __LOCALHOST__ = false;" );
+
 	fs.writeFileSync( "allCSS.css", cssSrcA + cssDep + cssSrcB );
-	fs.writeFileSync( "allJS.js", jsPre + jsSrcA + jsDep + jsSrcB );
+	fs.writeFileSync( "allJS.js", jsAll );
 
 	const cssMin = await execLightningCSS( "allCSS.css" );
 	const jsMin = await execTerser( "allJS.js" );
@@ -92,7 +84,7 @@ async function writeProFile() {
 		`<style>\n${ cssMin }</style>\n`,
 		formatLines( bodyLines ) + "\n",
 		info.splashScreen && await readFile( info.splashScreen ),
-		`<script>\n${ jsMin }</script>\n`,
+		`<script>\n"use strict";${ jsMin }</script>\n`,
 		formatLines( endLines ),
 	].filter( Boolean ).join( "" )
 		.replaceAll( "{{GSDAW-VERSION}}", info.version )
