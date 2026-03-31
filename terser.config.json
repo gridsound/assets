@@ -1,8 +1,7 @@
 {
+	"module": true,
 	"compress": {
-		"global_defs": {
-			"__LOCALHOST__": false
-		}
+		"passes": 2
 	},
 	"mangle": {
 		"toplevel": true,
