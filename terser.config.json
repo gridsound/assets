@@ -1,7 +1,11 @@
 {
 	"module": true,
 	"compress": {
-		"passes": 2
+		"passes": 3,
+		"toplevel": true,
+		"inline": 3,
+		"unused": true,
+		"reduce_vars": true
 	},
 	"mangle": {
 		"toplevel": true,
