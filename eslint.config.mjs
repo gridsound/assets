@@ -117,7 +117,7 @@ export default ( async () => {
 				"no-useless-return":            [ "error" ],
 				"no-unsafe-negation":           [ "error" ],
 				"no-compare-neg-zero":          [ "error" ],
-				"no-use-before-define":         [ "error", { functions: true, classes: false, variables: true } ],
+				"no-use-before-define":         [ "error", { functions: false, classes: false, variables: false } ],
 				"no-constant-condition":        [ "error" ],
 				"no-dupe-class-members":        [ "error" ],
 				"no-prototype-builtins":        [ "error" ],
@@ -210,10 +210,6 @@ export default ( async () => {
 					"catch": "always",
 				} ],
 				"@stylistic/no-whitespace-before-property": [ "error" ],
-				"@stylistic/padding-line-between-statements": [ "error",
-					{ blankLine: "always", prev: [ "const", "let" ], next: "*" },
-					{ blankLine: "never",  prev: [ "const", "let" ], next: [ "const", "let" ] }
-				],
 			},
 		},
 	];
