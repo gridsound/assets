@@ -28,7 +28,7 @@ const headerLines = [
 
 const bodyLines = [
 	`</head>`,
-	`<body>`,
+	`<body data-skin="gray">`,
 	`<noscript>It needs JavaScript to run</noscript>`,
 ];
 
