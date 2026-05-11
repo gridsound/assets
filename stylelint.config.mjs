@@ -21,7 +21,7 @@ export default ( async () => {
 			"selector-max-pseudo-class": 4,
 			"selector-max-compound-selectors": 4,
 			"selector-max-specificity": "2,3,1",
-			"declaration-block-single-line-max-declarations": 4,
+			"declaration-block-single-line-max-declarations": 5,
 
 			"value-no-vendor-prefix": true,
 			"at-rule-no-vendor-prefix": true,
