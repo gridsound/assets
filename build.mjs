@@ -86,11 +86,7 @@ async function writeProFile() {
 		info.splashScreen && await readFile( info.splashScreen ),
 		`<script>\n"use strict";${ jsMin }</script>\n`,
 		formatLines( endLines ),
-	].filter( Boolean ).join( "" )
-		.replaceAll( "{{GSDAW-VERSION}}", info.version )
-		.replaceAll( "//localhost/gridsound/api.gridsound.com/compositions/", "//compositions.gridsound.com/" )
-		.replaceAll( "//localhost/gridsound/api.gridsound.com/api/", "//api.gridsound.com/" )
-		.replaceAll( "//localhost/gridsound/daw/", "//daw.gridsound.com/" );
+	].filter( Boolean ).join( "" ).replaceAll( "{{GSDAW-VERSION}}", info.version );
 }
 
 // .............................................................................
