@@ -79,14 +79,24 @@ async function writeProFile() {
 
 	fs.unlinkSync( "allCSS.css" );
 	fs.unlinkSync( "allJS.js" );
-	return [
+
+	let all = [
 		formatLines( headerLines ) + "\n",
 		`<style>\n${ cssMin }</style>\n`,
 		formatLines( bodyLines ) + "\n",
 		info.splashScreen && await readFile( info.splashScreen ),
 		`<script>\n"use strict";${ jsMin }</script>\n`,
 		formatLines( endLines ),
-	].filter( Boolean ).join( "" ).replaceAll( "{{GSDAW-VERSION}}", info.version );
+	].filter( Boolean ).join( "" );
+
+	all = all.replaceAll( "{{GSDAW-VERSION}}", info.version );
+	all = all.replace( "../../../assets/logo/", "assets/logo/" );
+	all = all.replace( "../../assets/logo/", "assets/logo/" );
+	all = all.replace( "../../assets/art/", "assets/art/" );
+	all.match( /url\([^)]*\.woff2\?\d+\)/ug ).forEach( font => {
+		all = all.replace( font, `url(assets/fonts/${ font.substring( 4 ) }` );
+	} );
+	return all;
 }
 
 // .............................................................................
