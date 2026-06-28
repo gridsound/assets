@@ -181,9 +181,9 @@ switch ( process.argv[ 2 ] ) {
 		break;
 	case "dep":
 		lg( "updating git submodules... " );
-		await execCmd( "git submodule init" );
-		await execCmd( "git submodule update --remote" );
-		await execCmd( "cp gs-wa-components/gswaCrossfade/gswaCrossfadeProc.js ." );
+		await execCmd( "git submodule init" ).then( lg, lg );
+		await execCmd( "git submodule update --remote" ).then( lg, lg );
+		await execCmd( "cp gs-wa-components/gswaOscillator/gswaOscillatorProc.js ." ).then( lg, lg );
 		lg( "done" );
 		break;
 }
