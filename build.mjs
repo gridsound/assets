@@ -75,7 +75,9 @@ async function writeProFile() {
 	fs.writeFileSync( "allJS.js", jsAll );
 
 	const cssMin = await execLightningCSS( "allCSS.css" );
-	const jsMin = await execTerser( "allJS.js" );
+	const jsMin = await execCmd( `terser allJS.js --config-file assets/terser.config.json` );
+	
+	await execCmd( `terser gs-wa-components/gswaOsc/gswaOscProc.js -o gswaOscProc.js --config-file assets/terser.config.json` );
 
 	fs.unlinkSync( "allCSS.css" );
 	fs.unlinkSync( "allJS.js" );
@@ -132,9 +134,6 @@ function execCmd( c ) {
 function execLightningCSS( path ) {
 	return execCmd( `lightningcss ${ path } --minify --nesting` );
 }
-function execTerser( path ) {
-	return execCmd( `terser ${ path } --config-file assets/terser.config.json` );
-}
 function execESLint() {
 	return execCmd( "eslint -c assets/eslint.config.mjs . --color" )
 		.then( () => lg( "linting JS ok ✔️" ) )
@@ -183,7 +182,6 @@ switch ( process.argv[ 2 ] ) {
 		lg( "updating git submodules... " );
 		await execCmd( "git submodule init" ).then( lg, lg );
 		await execCmd( "git submodule update --remote" ).then( lg, lg );
-		await execCmd( "cp gs-wa-components/gswaOscillator/gswaOscillatorProc.js ." ).then( lg, lg );
 		lg( "done" );
 		break;
 }
