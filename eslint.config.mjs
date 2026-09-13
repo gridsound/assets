@@ -30,6 +30,7 @@ export default ( async () => {
 				"**/worker/OpusEncoder.js",
 				"**/worker/EmsArgs.js",
 				"**/worker/EmsWorkerProxy.js",
+				"**/assets/lame.1.2.1.min.js",
 			],
 		},
 		{
