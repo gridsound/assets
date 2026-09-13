@@ -134,8 +134,8 @@ function execCmd( c ) {
 function execLightningCSS( path ) {
 	return execCmd( `lightningcss ${ path } --minify --nesting` );
 }
-function execESLint() {
-	return execCmd( "eslint -c assets/eslint.config.mjs . --color" )
+function execESLint( fix ) {
+	return execCmd( `eslint -c assets/eslint.config.mjs . --color${ fix }` )
 		.then( () => lg( "linting JS ok ✔️" ) )
 		.catch( lg );
 }
@@ -160,7 +160,8 @@ switch ( process.argv[ 2 ] ) {
 			"node build.mjs lintCSS ---> check the CSS files",
 		].join( "\n" ) );
 		break;
-	case "lintJS": execESLint(); break;
+	case "lintJS": execESLint( "" ); break;
+	case "lintJSfix": execESLint( " --fix" ); break;
 	case "lintCSS": execStylelint( "" ); break;
 	case "lintCSSfix": execStylelint( " --fix" ); break;
 	case "prod":
