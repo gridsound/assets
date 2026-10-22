@@ -60,7 +60,7 @@ document.ondrop = e => {
 	GSUgetFilesDataTransfert( e.dataTransfer.items )
 		.then( files => {
 			saveFiles = files;
-			return Promise.all( files.map( f => GSUgetFileContent( f, "array" ) ) );
+			return Promise.all( files.map( f => f.arrayBuffer() ) );
 		} )
 		.then( files => {
 			ctx = GSUaudioContext();
