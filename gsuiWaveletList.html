@@ -15,7 +15,7 @@
 <script src="../gs-utils/gs-utils-func.js"></script>
 <script src="../gs-utils/gs-utils-files.js"></script>
 <script src="../gs-utils/gs-utils-jquery.js"></script>
-<script src="../gs-utils/gs-utils-audio-nodes.js"></script>
+<script src="../gs-wa-components/gswaContext/gswaContext.js"></script>
 <script>
 const WFsize = 96;
 
@@ -52,7 +52,6 @@ function sortArray( arr ) {
 document.ondragover = GSUnoopFalse;
 document.ondrop = e => {
 	let saveFiles;
-	let ctx;
 
 	e.preventDefault();
 	e.stopPropagation();
@@ -63,8 +62,7 @@ document.ondrop = e => {
 			return Promise.all( files.map( f => f.arrayBuffer() ) );
 		} )
 		.then( files => {
-			ctx = GSUaudioContext();
-			return Promise.all( files.map( f => ctx.decodeAudioData( f ) ) );
+			return Promise.all( files.map( f => gswaContext.$decodeAudioData( f ) ) );
 		} )
 		.then( waves => {
 			const waves2 = sortArray( waves.map( ( buf, i ) => [
@@ -72,7 +70,6 @@ document.ondrop = e => {
 				GSUarrayResize( buf.getChannelData( 0 ), WFsize ),
 			] ) );
 
-			ctx.close();
 			const group0 = [
 				[ "sine" , GSUmathWaveSine( WFsize ) ],
 				[ "triangle" , GSUmathWaveTriangle( 5 ) ],
