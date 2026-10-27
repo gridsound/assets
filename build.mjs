@@ -75,9 +75,11 @@ async function writeProFile() {
 	fs.writeFileSync( "allJS.js", jsAll );
 
 	const cssMin = await execLightningCSS( "allCSS.css" );
-	const jsMin = await execCmd( `terser allJS.js --config-file assets/terser.config.json` );
-	
-	await execCmd( `terser gs-wa-components/gswaOsc/gswaOscProc.js -o gswaOscProc.js --config-file assets/terser.config.json` );
+	const jsConf = "--config-file assets/terser.config.json";
+	const jsMin = await execCmd( `terser allJS.js ${ jsConf }` );
+
+	await execCmd( `terser gs-wa-components/gswaOsc/gswaOscProc.js                   -o gswaOscProc.js          ${ jsConf }` );
+	await execCmd( `terser gs-wa-components/gswaBufferPlayer/gswaBufferPlayerProc.js -o gswaBufferPlayerProc.js ${ jsConf }` );
 
 	fs.unlinkSync( "allCSS.css" );
 	fs.unlinkSync( "allJS.js" );
