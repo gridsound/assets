@@ -57,13 +57,7 @@ document.ondrop = e => {
 	e.stopPropagation();
 	output.$text( "" );
 	GSUgetFilesDataTransfert( e.dataTransfer.items )
-		.then( files => {
-			saveFiles = files;
-			return Promise.all( files.map( f => f.arrayBuffer() ) );
-		} )
-		.then( files => {
-			return Promise.all( files.map( f => gswaContext.$decodeAudioData( f ) ) );
-		} )
+		.then( files => Promise.all( ( saveFiles = files ).map( gswaContext.$decodeAudioData ) ) )
 		.then( waves => {
 			const waves2 = sortArray( waves.map( ( buf, i ) => [
 				saveFiles[ i ].name.replaceAll( /(^a_|\.wav$)/ug, "" ),
