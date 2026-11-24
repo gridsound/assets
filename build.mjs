@@ -75,11 +75,10 @@ async function writeProFile() {
 	fs.writeFileSync( "allJS.js", jsAll );
 
 	const cssMin = await execLightningCSS( "allCSS.css" );
-	const jsConf = "--config-file assets/terser.config.json";
-	const jsMin = await execCmd( `terser allJS.js ${ jsConf }` );
+	const jsMin = await execTerser( "allJS.js" );
 
-	await execCmd( `terser gs-wa-components/gswaOsc/gswaOscProc.js                   -o gswaOscProc.js          ${ jsConf }` );
-	await execCmd( `terser gs-wa-components/gswaBufferPlayer/gswaBufferPlayerProc.js -o gswaBufferPlayerProc.js ${ jsConf }` );
+	await execTerser( "gs-wa-components/gswaOsc/gswaOscProc.js",                   "gswaOscProc.js" );
+	await execTerser( "gs-wa-components/gswaBufferPlayer/gswaBufferPlayerProc.js", "gswaBufferPlayerProc.js" );
 
 	fs.unlinkSync( "allCSS.css" );
 	fs.unlinkSync( "allJS.js" );
@@ -132,6 +131,9 @@ function execCmd( c ) {
 			? rej( stderr || stdout )
 			: res( stdout );
 	} ) );
+}
+function execTerser( src, dest = "" ) {
+	return execCmd( `terser ${ src }${ dest || ` -o ${ dest }` } --config-file assets/terser.config.json` );
 }
 function execLightningCSS( path ) {
 	return execCmd( `lightningcss ${ path } --minify --nesting` );
