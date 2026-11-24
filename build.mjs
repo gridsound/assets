@@ -5,6 +5,52 @@ const info = fs.existsSync( conf )
 	? JSON.parse( fs.readFileSync( conf, "utf-8" ) )
 	: {};
 
+// .............................................................................
+const lg = s => {
+	process.stdout.write( s );
+};
+const readFiles = paths => {
+	const prom = [];
+
+	paths?.forEach( p => prom.push( readFile( p ) ) );
+	return Promise.all( prom ).then( arr => arr.join( "\n" ) + "\n" );
+};
+const readFile = path => {
+	return new Promise( res => {
+		fs.readFile( path, "utf8", ( err, txt ) => res( txt ) );
+	} );
+};
+
+// .............................................................................
+const execCmd = c => {
+	return new Promise( ( res, rej ) => exec( c, ( err, stdout, stderr ) => {
+		err
+			? rej( stderr || stdout )
+			: res( stdout );
+	} ) );
+};
+const execTerser = ( src, dest = "" ) => {
+	return execCmd( `terser ${ src }${ dest || ` -o ${ dest }` } --config-file assets/terser.config.json` );
+};
+const execLightningCSS = path => {
+	return execCmd( `lightningcss ${ path } --minify --nesting` );
+};
+const execESLint = fix => {
+	return execCmd( `eslint -c assets/eslint.config.mjs . --color${ fix }` )
+		.then( () => lg( "linting JS ok ✔️" ), lg );
+};
+const execStylelint = fix => {
+	return execCmd( `stylelint -c assets/stylelint.config.mjs **/*.css${ fix }` )
+		.then( () => lg( "linting CSS ok ✔️" ), lg );
+};
+
+// .............................................................................
+const formatLines = lines => lines.filter( Boolean ).join( "\n" );
+const formatScript = s => `<script src="${ s }"></script>\n`;
+const formatStyle = s => `<link rel="stylesheet" href="${ s }"/>\n`;
+const formatSep = `<!-- ${ ( new Array( 71 ) ).join( "." ) } -->\n`;
+
+// .............................................................................
 const headerLines = [
 	`<!DOCTYPE html>`,
 	`<html lang="en">`,
@@ -100,53 +146,6 @@ async function writeProFile() {
 		all = all.replace( font, `url(assets/fonts/${ font.substring( 4 ) }` );
 	} );
 	return all;
-}
-
-// .............................................................................
-const formatLines = lines => lines.filter( Boolean ).join( "\n" );
-const formatScript = s => `<script src="${ s }"></script>\n`;
-const formatStyle = s => `<link rel="stylesheet" href="${ s }"/>\n`;
-const formatSep = `<!-- ${ ( new Array( 71 ) ).join( "." ) } -->\n`;
-
-// .............................................................................
-function lg( s ) {
-	process.stdout.write( s );
-}
-function readFiles( paths ) {
-	const prom = [];
-
-	paths?.forEach( p => prom.push( readFile( p ) ) );
-	return Promise.all( prom ).then( arr => arr.join( "\n" ) + "\n" );
-}
-function readFile( path ) {
-	return new Promise( res => {
-		fs.readFile( path, "utf8", ( err, txt ) => res( txt ) );
-	} );
-}
-
-// .............................................................................
-function execCmd( c ) {
-	return new Promise( ( res, rej ) => exec( c, ( err, stdout, stderr ) => {
-		err
-			? rej( stderr || stdout )
-			: res( stdout );
-	} ) );
-}
-function execTerser( src, dest = "" ) {
-	return execCmd( `terser ${ src }${ dest || ` -o ${ dest }` } --config-file assets/terser.config.json` );
-}
-function execLightningCSS( path ) {
-	return execCmd( `lightningcss ${ path } --minify --nesting` );
-}
-function execESLint( fix ) {
-	return execCmd( `eslint -c assets/eslint.config.mjs . --color${ fix }` )
-		.then( () => lg( "linting JS ok ✔️" ) )
-		.catch( lg );
-}
-function execStylelint( fix ) {
-	return execCmd( `stylelint -c assets/stylelint.config.mjs **/*.css${ fix }` )
-		.then( () => lg( "linting CSS ok ✔️" ) )
-		.catch( lg );
 }
 
 // .............................................................................
