@@ -48,7 +48,7 @@ const execStylelint = fix => {
 const formatLines = lines => lines.filter( Boolean ).join( "\n" );
 const formatScript = s => `<script src="${ s }"></script>\n`;
 const formatStyle = s => `<link rel="stylesheet" href="${ s }"/>\n`;
-const formatSep = `<!-- ${ ( new Array( 71 ) ).join( "." ) } -->\n`;
+const formatSep = `<!-- ${ ".".repeat( 71 ) } -->\n`;
 
 // .............................................................................
 const headerLines = [
